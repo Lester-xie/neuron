@@ -6,7 +6,7 @@ function release() {
         electron-builder --mac -p always
         ;;
         win)
-        electron-builder --win --x64 -p always
+        DEBUG=electron-builder electron-builder --win --x64 -p always
         ;;
         linux)
         electron-builder --linux -p always
