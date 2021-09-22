@@ -1,15 +1,10 @@
-name: Package Neuron for Release Draft
+name: Package Neuron for Test
 
 on:
-  push:
-    branches:
-      - master
-      - "rc/**"
-      - "hotfix/**"
+  - push
 
 jobs:
   default:
-    if: false
     strategy:
       matrix:
         node:
@@ -67,7 +62,7 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: |
           ./scripts/download-ckb.sh mac
-          yarn release mac
+          yarn package:test mac
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_LINK: ${{ secrets.MAC_CERTIFICATE_BASE64 }}
@@ -79,7 +74,7 @@ jobs:
           bash ./scripts/download-ckb.sh win
           yarn build
           bash ./scripts/copy-ui-files.sh
-          bash ./scripts/release.sh win
+          bash ./scripts/package_for_test.sh win
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_LINK: ${{ secrets.WIN_CERTIFICATE_BASE64 }}
@@ -89,7 +84,7 @@ jobs:
         if: matrix.os == 'ubuntu-18.04'
         run: |
           ./scripts/download-ckb.sh
-          yarn release linux
+          yarn package:test linux
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
